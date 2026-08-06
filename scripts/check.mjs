@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Definition of Done for this repository. Exits non-zero on any failure.
-import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync, statSync, lstatSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
@@ -83,6 +83,23 @@ if (!existsSync(claude)) {
 // --- 5. The mandated documents exist.
 for (const p of ["CONTEXT.md", "docs/adr"]) {
   if (!existsSync(join(root, p))) fail(join(root, p), "missing — required by ADR-0004");
+}
+
+// --- 6. No symlinks in the skills tree. `npx skills` recreates them on every run;
+//     committed from a machine with core.symlinks=true they corrupt Windows checkouts.
+for (const entry of readdirSync(SKILLS_DIR)) {
+  if (lstatSync(join(SKILLS_DIR, entry)).isSymbolicLink())
+    fail(join(SKILLS_DIR, entry), "is a symlink — run `npm run skills:flatten`");
+}
+
+// --- 7. The one forked edit survives. `npx skills update` reverts it silently.
+const gwd = join(SKILLS_DIR, "grill-with-docs", "SKILL.md");
+if (existsSync(gwd)) {
+  const text = readFileSync(gwd, "utf8");
+  if (/^disable-model-invocation:\s*true/m.test(text))
+    fail(gwd, "reverted to upstream — it must stay model-invocable to fire on its own (ADR-0001)");
+  if (!/new seam, dependency, schema/.test(text))
+    fail(gwd, "description has lost the trigger list — restore it, see ADR-0002");
 }
 
 if (warnings.length) {

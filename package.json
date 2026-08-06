@@ -5,6 +5,7 @@
   "type": "module",
   "description": "An opinionated standard for making a codebase one that coding agents can work in.",
   "scripts": {
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "skills:flatten": "node scripts/flatten-skills.mjs"
   }
 }

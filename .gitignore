@@ -1,3 +1,6 @@
 node_modules/
 CLAUDE.local.md
 .claude/settings.local.json
+
+# Recreated by `npx skills`; flattened into .claude/skills by npm run skills:flatten
+.agents/
