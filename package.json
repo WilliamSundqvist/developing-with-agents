@@ -1,0 +1,10 @@
+{
+  "name": "developing-with-agents",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An opinionated standard for making a codebase one that coding agents can work in.",
+  "scripts": {
+    "check": "node scripts/check.mjs"
+  }
+}

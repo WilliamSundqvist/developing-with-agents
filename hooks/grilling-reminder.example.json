@@ -1,0 +1,27 @@
+{
+  "_comment": [
+    "OFF BY DEFAULT. See docs/adr/0008-instructions-not-hooks-for-now.md.",
+    "The grilling trigger normally lives in AGENTS.md as prose, which is advisory:",
+    "measured compliance with policy documents tops out around 36%, and decays",
+    "further as a session goes on. Enable this hook if you observe people drifting",
+    "past the trigger in long sessions.",
+    "",
+    "Claude Code: merge the `hooks` block below into .claude/settings.json.",
+    "VS Code:     copy this file to .github/hooks/grilling-reminder.json (Preview, 1.109+).",
+    "",
+    "Cost of enabling: the rule now lives in two places. Edit one without the other",
+    "and the agent is told two different things. Keep them in sync or delete the prose."
+  ],
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.log('Before building: if this request adds or alters a design decision - a new module seam, dependency, schema, external contract, agent behaviour, or product rule - run the grill-with-docs skill first. Name the clause that fired, then start. Mechanical work proceeds normally.')\""
+          }
+        ]
+      }
+    ]
+  }
+}
