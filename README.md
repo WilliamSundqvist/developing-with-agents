@@ -28,6 +28,8 @@ Do these two steps in the repository you already have.
 npx skills@latest add WilliamSundqvist/developing-with-agents
 ```
 
+The skills go into `.claude/skills/`. This folder is not only for Claude. VS Code Copilot reads `.claude/skills/` and `CLAUDE.md` by default, with no settings to change. One set of files works in both tools.
+
 **Step 2.** In VS Code Copilot or Claude Code, type:
 
 ```
@@ -130,6 +132,14 @@ Every decision is in [`docs/adr/`](docs/adr/). The research behind it is in [`do
 
 ## Work on this repository
 
-`npm run check` is the Definition of Done. It checks the skill files, finds skills that point to skills nobody installed, and enforces the line limit on `AGENTS.md`.
+`npm run check` is the Definition of Done. It checks the skill files, finds skills that point to skills nobody installed, enforces the line limit on `AGENTS.md`, and makes sure the one hand-edited skill has not gone back to the original.
 
-One forked file is edited by hand. See [ADR-0002](docs/adr/0002-surgical-fork-of-upstream-skills.md) and [`NOTICE`](NOTICE). Keep the other files the same as the original, so `npx skills update` continues to work. Check the edited file after each update.
+**After you run `npx skills add` or `npx skills update`, run this:**
+
+```bash
+npm run skills:flatten && npm run check
+```
+
+The `skills` command puts the files in `.agents/` and points `.claude/skills/` at them with symlinks. It also replaces our edited file with the original. `skills:flatten` makes the folders real again and deletes `.agents/`. `check` then tells you if the edit is missing.
+
+One forked file is edited by hand. See [ADR-0002](docs/adr/0002-surgical-fork-of-upstream-skills.md) and [`NOTICE`](NOTICE). Keep the other files the same as the original, so `npx skills update` continues to work.
