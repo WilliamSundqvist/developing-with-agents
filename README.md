@@ -16,6 +16,8 @@ Two commands in the repository you want to improve.
 npx skills@latest add WilliamSundqvist/developing-with-agents
 ```
 
+**Select all seven skills.** The CLI asks which ones you want — take every one. The set has already been cut to the minimum, and the skills call each other: `/grill-with-docs` runs `grilling` and `domain-modeling`. A partial install leaves the main workflow pointing at skills that aren't installed, and it fails quietly — the agent simply doesn't find them, and you're left wondering why nothing happens.
+
 Then, in VS Code Copilot or Claude Code:
 
 ```
