@@ -77,13 +77,17 @@ Leave out:
 - Tutorials and long explanations.
 - Self-evident advice such as "write clean code".
 
+**Never write a credential into the file.** No key, token, password or shared secret, even one already hardcoded in the source. Name the mechanism and the file that holds it. `AGENTS.md` loads into every agent's context on every turn and is committed to version control — it is the worst place in the repository for a secret to end up.
+
+**The last two sections are boilerplate.** Copy `## When to grill first` and `## Rules hygiene` verbatim from the worked example; they are identical in every repository. Open questions belong under `## Unverified`, and code conventions under `## Deviations from the defaults` — neither goes in those two.
+
 Three rules hold that density:
 
-- **Verification is a gate, not content.** You ran the commands to find out which ones are real. Write the command. Add a note beside it only when the note is a trap the next agent would hit — "98 nullable warnings; keep cleanup out of feature work" earns its line, "succeeded locally" does not.
+- **Verification is a gate, not content.** You ran the commands to find out which ones are real. Write the command. Add a note beside it only when the note is a trap the next agent would hit — "98 nullable warnings; keep cleanup out of feature work" earns its line, "succeeded locally" does not. A short file produced without running anything is not the goal: cutting the narration is a formatting win, and skipping the execution is losing the only thing that made the file trustworthy.
 - **State the fact, not the ban.** "Local startup needs `KeyVault:Name` in user secrets" beats "do not assume local startup works from appsettings" — it is shorter, and a prohibition makes the wrong behaviour more available, not less.
 - **Where to look stays a table.** One row per kind of change: task, path, note. Prose paragraphs per file are the same information at four times the length.
 
-The Definition of Done is **one command**. Conditions about which parts to check belong in the work, not in the bar.
+The Definition of Done is **one command**, and one you watched pass. Conditions about which parts to check belong in the work, not in the bar. A bar the repository cannot currently meet — "no warnings" where the build emits 98 — is worse than none, because the first person to try it learns the file lies.
 
 Then:
 
