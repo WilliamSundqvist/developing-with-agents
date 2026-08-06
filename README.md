@@ -56,22 +56,23 @@ When things drift, run `/audit-docs`. It checks all three against the code and e
 
 ## The skills, and why only these
 
-Eleven, doing four jobs:
+Nine, doing three jobs:
 
 | | |
 |---|---|
-| `grill-with-docs` · `grilling` · `grill-me` · `domain-modeling` | The loop. Grilling produces the decision; `domain-modeling` turns it into a record and a glossary entry. `grill-me` is the same interview without the paperwork. |
+| `grill-with-docs` · `grilling` · `domain-modeling` | The loop. Grilling produces the decision; `domain-modeling` turns it into a record and a glossary entry. |
 | `onboard` · `audit-docs` | Start the documents, then keep them honest. The only two written here. |
-| `codebase-design` · `improve-codebase-architecture` | Shared vocabulary for the decisions grilling surfaces, and a way to go looking for them. |
-| `writing-for-agents` · `handoff` · `wait-what` | Editing agent-facing documents, carrying context between sessions, and recovering when an explanation doesn't land. |
+| `writing-for-agents` · `codebase-design` · `handoff` · `wait-what` | Editing agent-facing documents, shared vocabulary for design decisions, carrying context between sessions, and recovering when an explanation doesn't land. |
 
-They're a fork of [mattpocock/skills](https://github.com/mattpocock/skills), which is the best-written collection available — and deliberately not all of it. Two rules decided what came across:
+They're a fork of [mattpocock/skills](https://github.com/mattpocock/skills), which is the best-written collection available — and deliberately not all of it. Three rules decided what came across:
 
 **Nothing that requires changing infrastructure you don't control.** Ticket systems are imposed by employers, not chosen by teams; a standard that assumes you can swap yours is a standard nobody can adopt. So the ticket and spec workflows stay out, however good they are. This repo's whole promise is that you can adopt it this afternoon, alone, without asking anyone.
 
-**Skill count is a budget, not a collection.** Measured pass rates fall 8–21% as libraries grow to 52–202 skills, and the cause is *shadowing* — skills competing to match a request — not token cost. Every skill added makes the ones you depend on fire less reliably. Adding one means naming which existing skill it now competes with.
+**Nothing that decides how your team builds.** Test-first, review process, debugging method — those are your calls, and smuggling them in under a documentation standard would be dishonest. This standard makes a repository legible to agents and to teammates. That's all it does.
 
-`wayfinder` was taken and then dropped: multi-session planning built on tickets, and it pulled in two more skills as dependencies.
+**Skill count is a budget, not a collection.** Measured pass rates fall 8–21% as libraries grow to 52–202 skills, and the cause is *shadowing* — skills competing to match a request — not token cost. Adding one means naming which existing skill it now competes with.
+
+Three were taken and then dropped, which is the rule working: `wayfinder` (multi-session planning built on tickets, and it pulled in two more skills as dependencies), `improve-codebase-architecture` (a heavyweight architecture review — good, but it improves code rather than making the repo legible), and `grill-me` (grilling without the documents, which is an exit from the one mechanism this rests on).
 
 ## What this is honest about
 
