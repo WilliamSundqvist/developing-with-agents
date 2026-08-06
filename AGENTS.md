@@ -33,7 +33,7 @@ No build, no tests. `check` is the only gate.
 
 - `skills-lock.json` hashes are computed by the `skills` CLI in a way nothing here reproduces. Hand-editing them produces a file that lies. Regenerate by re-running the CLI.
 - The worked examples are `.example.md` so no agent loads them. Renaming one to `AGENTS.md` would make a fictional API's facts live in this repo.
-- **Skill count is a budget.** Measured pass rates drop 8–21% as libraries grow to 52–202 skills, through shadowing rather than token cost. Adding one means naming which of the nine it competes with, and clearing the two exclusion rules in [ADR-0010](docs/adr/0010-skills-that-require-infrastructure-we-do-not-control-stay-out.md).
+- **Skill count is a budget.** Measured pass rates drop 8–21% as libraries grow to 52–202 skills, through shadowing rather than token cost. Adding one means naming which of the seven it competes with, and clearing the exclusion rules in [ADR-0010](docs/adr/0010-skills-that-require-infrastructure-we-do-not-control-stay-out.md).
 - Agent Skills need **VS Code 1.109+**. Older versions read `AGENTS.md` and silently ignore everything in `.claude/skills/`.
 
 ## Before you build
