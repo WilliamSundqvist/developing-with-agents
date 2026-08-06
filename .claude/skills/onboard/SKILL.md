@@ -18,21 +18,33 @@ Read [`AGENTS.example.md`](../../../AGENTS.example.md) before drafting — it is
 
 ## Process
 
-### 1. Verify
+### 1. Gather evidence — in a subagent
 
-**Inherit before you write.** Search for `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`, `.cursorrules`, `.windsurfrules`, `GEMINI.md`, `.github/instructions/`. Read every hit. You are revising something that encodes decisions you cannot see.
+**Dispatch a subagent to do this step.** Send it the brief below and nothing else. It must not see the output format, the section list, or the line budget: an agent that can see the shape of the document it is heading towards stops digging and starts drafting, and returns a tidy file it never verified.
 
-**Establish the commands by running them.** Read the manifest, the CI workflow and any task runner, then **execute** the build, test, lint and typecheck commands you find. A command that fails is not a command — find the one that works, or record that there isn't one. This step is what separates a useful file from a plausible one.
+Wait for it. You are not exploring; it is.
 
-**Trust executable evidence over prose.** Manifests, CI configs and scripts outrank READMEs. Where they disagree, the workflow file is right.
+> **Subagent brief — gather evidence about this repository. You are not writing any document.**
+>
+> **Inherit first.** Search for `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`, `.cursorrules`, `.windsurfrules`, `GEMINI.md`, `.github/instructions/`. Read every hit and report what it claims.
+>
+> **Establish the commands by running them.** Read the manifest, the CI workflow and any task runner, then **execute** every build, test, lint and typecheck command you find. Record the exit code. A command that fails is not a command — find the one that works, or report that none exists. Report failures in full: a command that fails for a missing secret or an absent service has told you something the next agent needs.
+>
+> **Trust executable evidence over prose.** Manifests, CI configs and scripts outrank READMEs. Where they disagree, the workflow file is right.
+>
+> **Read wiring, not leaves.** Entry points, route tables, module registries, config loaders, migrations. Bound it at roughly ten files and let each discovery pick the next read.
+>
+> **Mine the history** — `git log --oneline -50` — for the commit and pull request conventions people actually follow.
+>
+> Return three things, and nothing else:
+>
+> 1. **Evidence table** — one row per command: `command | exit code | what it proved`.
+> 2. **Findings** — one line each, every one naming the repo-relative path that demonstrates it. No path, no finding.
+> 3. **Unknowns** — anything you could not settle by reading or running. This list is an output, not a failure.
+>
+> Report no credential values. Name the mechanism and the file that holds it.
 
-**Read wiring, not leaves.** Entry points, route tables, module registries, config loaders, migrations. Bound it at roughly ten files and let each discovery pick the next read.
-
-**Mine the history** — `git log --oneline -50` — for the commit and PR conventions people actually follow.
-
-**Keep an unknowns list.** Anything you want to write but cannot trace to a file you read or a command you ran goes on the list instead. The list is an output, not a failure.
-
-Done when every command in the draft has been executed, and every convention names the file that demonstrates it. Record paths repo-relative from the start — an absolute path is unreadable in a question and wrong in a committed document.
+Done when the subagent has returned all three. If the evidence table is empty, the step did not happen — dispatch again rather than proceeding.
 
 ### 2. Interview
 
@@ -54,6 +66,8 @@ Anything unresolved goes under an **Unverified** heading, named as an open quest
 **Write the files.** The editor shows the diff — a proposed document pasted into the conversation is unreadable and cannot be reviewed line by line. Say in two or three lines what you wrote and what stayed unresolved.
 
 `AGENTS.md`, **60–100 lines**, in the sections and at the density of [`AGENTS.example.md`](../../../AGENTS.example.md): Commands · Where to look · Deviations from the defaults · Gotchas · When to grill first · Definition of Done · Rules hygiene. The example is 68 lines and covers a real service. `check` fails above 150.
+
+**Every command you write appears in the evidence table with its exit code.** A command that is not in the table does not go in the file — not from a README, not from memory, not because it is obviously right. The same rule binds findings: each one carries the path the subagent named.
 
 **Apply the editing test to every line before you write it:** *would removing this line cause the agent to make a mistake?* If not, cut it. Anthropic states the failure plainly — a bloated file makes the agent ignore the instructions that matter.
 
