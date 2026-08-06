@@ -6,7 +6,7 @@ This is an opinionated standard for doing that. It covers one thing — **the re
 
 The documents that make agents effective turn out to be the documents that make a team agree with itself. That's the real return.
 
-**Credit and further reading.** The skills are forked from [mattpocock/skills](https://github.com/mattpocock/skills), which is worth reading in full. For a walkthrough of the grilling workflow that sits at the centre of this standard, watch [Matt's video](https://www.youtube.com/watch?v=6BB6exR8Zd8) — he demonstrates the `grill-me` skill, which this standard deliberately doesn't ship. The equivalent here is `/grill-with-docs`, which runs the same interview and writes the decision record and glossary entries as it goes.
+**Credit and further reading.** The skills are forked from [mattpocock/skills](https://github.com/mattpocock/skills), which is worth reading in full. For a detailed walkthrough of the workflow at the centre of this standard, watch Matt Pocock's [I stopped using /grill-me for coding. Here's what I use instead](https://www.youtube.com/watch?v=6BB6exR8Zd8) — it introduces `/grill-with-docs`, which combines the interview with domain-driven design so you and the agent end up sharing a language rather than guessing at each other's.
 
 ## Install
 
