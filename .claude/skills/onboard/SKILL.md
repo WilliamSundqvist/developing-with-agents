@@ -32,11 +32,15 @@ Read [`AGENTS.example.md`](../../../AGENTS.example.md) before drafting — it is
 
 **Keep an unknowns list.** Anything you want to write but cannot trace to a file you read or a command you ran goes on the list instead. The list is an output, not a failure.
 
-Done when every command in the draft has been executed, and every convention names the file that demonstrates it.
+Done when every command in the draft has been executed, and every convention names the file that demonstrates it. Record paths repo-relative from the start — an absolute path is unreadable in a question and wrong in a committed document.
 
 ### 2. Interview
 
-Run the `/grilling` skill against the unknowns list, and only that list. One question at a time, each with your recommended answer. Ask what no repository can tell you:
+Run the `/grilling` skill against the unknowns list, and only that list. One question at a time, each with your recommended answer.
+
+**Keep the question readable.** The question itself carries no file paths. Put evidence on its own line beneath it, as a repo-relative path with an optional line number — `src/orders/dispatch.ts:42`, never an absolute path. Two paths at most; a third means you are asking two questions.
+
+Ask what no repository can tell you:
 
 - Which of several plausible directories does a kind of change belong in?
 - What has bitten people here that the code does not confess?
