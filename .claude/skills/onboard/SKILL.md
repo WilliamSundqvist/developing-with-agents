@@ -53,7 +53,29 @@ Anything unresolved goes under an **Unverified** heading, named as an open quest
 
 **Write the files.** The editor shows the diff — a proposed document pasted into the conversation is unreadable and cannot be reviewed line by line. Say in two or three lines what you wrote and what stayed unresolved.
 
-`AGENTS.md`, 120–180 lines, in the sections and at the density of [`AGENTS.example.md`](../../../AGENTS.example.md): Commands · Where to look · Deviations from the defaults · Gotchas · When to grill first · Definition of Done · Rules hygiene. A draft half again longer than the example is narrating — cut it back.
+`AGENTS.md`, **60–100 lines**, in the sections and at the density of [`AGENTS.example.md`](../../../AGENTS.example.md): Commands · Where to look · Deviations from the defaults · Gotchas · When to grill first · Definition of Done · Rules hygiene. The example is 68 lines and covers a real service. `check` fails above 150.
+
+**Apply the editing test to every line before you write it:** *would removing this line cause the agent to make a mistake?* If not, cut it. Anthropic states the failure plainly — a bloated file makes the agent ignore the instructions that matter.
+
+Write:
+
+- Commands the agent cannot guess, and the flags that matter.
+- Style rules that **differ** from the language's defaults.
+- How to run one test rather than the whole suite.
+- Branch and pull request conventions the history shows people actually follow.
+- Environment quirks — required variables, services that must already be running.
+- Gotchas and non-obvious behaviour.
+- Decisions specific to this project, one line each.
+
+Leave out:
+
+- Anything derivable by reading the code.
+- Standard language conventions the agent already knows.
+- API documentation — link to it.
+- Anything that changes often. A stale line measures worse than a missing one.
+- File-by-file descriptions, directory trees, dependency lists.
+- Tutorials and long explanations.
+- Self-evident advice such as "write clean code".
 
 Three rules hold that density:
 

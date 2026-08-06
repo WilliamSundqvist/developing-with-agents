@@ -57,11 +57,13 @@ Mechanical work — renames, typos, dependency bumps, fixing a failing test, app
 
 ## Rules hygiene
 
-This file is capped at **250 lines**. Adding something means deciding what comes out.
+Target **60–100 lines**, hard cap **150**. Adding something means deciding what comes out.
+
+Every line must pass one test: **would removing it cause the agent to make a mistake?** If not, cut it.
 
 A rule earns a place here only after the same mistake has happened **twice**. Once is a coincidence.
 
-When an agent ignores an instruction in this file, suspect the file's **length** before its phrasing.
+Two diagnostics. When an agent **ignores** an instruction here, the file is too long and the rule got lost — check length before rewording. When an agent **asks** something this file already answers, that line is ambiguous.
 
 Anything derivable by reading the code does not belong here — no architecture overview, no directory tree, no dependency list. This file is for what the code cannot say.
 

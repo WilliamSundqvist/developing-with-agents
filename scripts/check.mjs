@@ -9,7 +9,7 @@ const fail = (file, msg) => failures.push(`${relative(root, file).replace(/\\/g,
 
 const SKILLS_DIR = join(root, ".claude", "skills");
 const AGENTS_MD = join(root, "AGENTS.md");
-const LINE_BUDGET = 250;
+const LINE_BUDGET = 150;
 
 const walk = (dir) =>
   readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
