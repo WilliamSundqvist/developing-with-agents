@@ -7,7 +7,7 @@ The company standard for making a codebase agents can work in. Everything here i
 | | |
 |---|---|
 | `npm run check` | **Definition of Done.** Validates skills, pointers, and the mandated documents. Must exit 0. |
-| `npx skills update` | Pulls upstream changes to the forked skills. See the warning below. |
+| `npm run skills:flatten` | Only after running `npx skills` here. Turns its symlinks back into real directories. |
 
 No build, no tests. `check` is the only gate.
 
@@ -24,14 +24,14 @@ No build, no tests. `check` is the only gate.
 
 ## Deviations from the defaults
 
-- **The skills in `.claude/skills/` are forked, not vendored** ([ADR-0002](docs/adr/0002-surgical-fork-of-upstream-skills.md)). Exactly one file is hand-edited: `grill-with-docs`. Everything else is byte-identical to upstream so `npx skills update` stays usable — keep it that way, and re-check that one file after any update, because the CLI has open bugs where it pulls a whole source rather than a named skill.
+- **We own all seven skills outright** ([ADR-0011](docs/adr/0011-the-fork-is-complete-not-surgical.md)). There is no `skills-lock.json` and no upstream update path — a lock file makes the `skills` CLI refuse to re-export the locked skills, so teams received two of seven. Improvements from [mattpocock/skills](https://github.com/mattpocock/skills) arrive by reading it and porting what is worth having.
 - **`.claude/skills/*` are real directories, never symlinks.** They were symlinks once; on a Windows checkout with `core.symlinks` false, git writes the link path into a plain text file and the whole tree silently becomes garbage.
 - **No `.github/copilot-instructions.md`** ([ADR-0003](docs/adr/0003-one-instruction-file-with-a-claude-md-stub.md)). VS Code combines it with `AGENTS.md` in no guaranteed order, so a second file is a second source of truth, not redundancy.
 - **`AGENTS.md` carries no architecture overview** ([ADR-0006](docs/adr/0006-no-architecture-overview-in-the-instruction-file.md)). This deviates from near-universal practice and is deliberate.
 
 ## Gotchas
 
-- `skills-lock.json` hashes are computed by the `skills` CLI in a way nothing here reproduces. Hand-editing them produces a file that lies. Regenerate by re-running the CLI.
+- Never commit a `skills-lock.json` here. Running `npx skills add` in this repo recreates one, and it silently drops every locked skill from what teams can install. Delete it and run `npm run skills:flatten`.
 - The worked examples are `.example.md` so no agent loads them. Renaming one to `AGENTS.md` would make a fictional API's facts live in this repo.
 - **Skill count is a budget.** Measured pass rates drop 8–21% as libraries grow to 52–202 skills, through shadowing rather than token cost. Adding one means naming which of the seven it competes with, and clearing the exclusion rules in [ADR-0010](docs/adr/0010-skills-that-require-infrastructure-we-do-not-control-stay-out.md).
 - Agent Skills need **VS Code 1.109+**. Older versions read `AGENTS.md` and silently ignore everything in `.claude/skills/`.

@@ -134,12 +134,14 @@ Every decision is in [`docs/adr/`](docs/adr/). The research behind it is in [`do
 
 `npm run check` is the Definition of Done. It checks the skill files, finds skills that point to skills nobody installed, enforces the line limit on `AGENTS.md`, and makes sure the one hand-edited skill has not gone back to the original.
 
-**After you run `npx skills add` or `npx skills update`, run this:**
+**Do not run `npx skills` in this repository.** It writes a `skills-lock.json`, and the CLI will not re-export a skill that a lock file claims for another source. With a lock here, teams who install from this repository get two skills instead of seven ([ADR-0011](docs/adr/0011-the-fork-is-complete-not-surgical.md)). `check` fails if one appears.
+
+If you run it by accident:
 
 ```bash
-npm run skills:flatten && npm run check
+rm skills-lock.json && npm run skills:flatten && npm run check
 ```
 
-The `skills` command puts the files in `.agents/` and points `.claude/skills/` at them with symlinks. It also replaces our edited file with the original. `skills:flatten` makes the folders real again and deletes `.agents/`. `check` then tells you if the edit is missing.
+`skills:flatten` also turns the symlinks the CLI creates back into real folders.
 
-One forked file is edited by hand. See [ADR-0002](docs/adr/0002-surgical-fork-of-upstream-skills.md) and [`NOTICE`](NOTICE). Keep the other files the same as the original, so `npx skills update` continues to work.
+We own all seven skills. Improvements from [mattpocock/skills](https://github.com/mattpocock/skills) arrive by reading that repository and copying what is worth having. The licence and the list of derived files are in [`NOTICE`](NOTICE).

@@ -102,6 +102,11 @@ if (existsSync(gwd)) {
     fail(gwd, "description has lost the trigger list — restore it, see ADR-0002");
 }
 
+// --- 8. No lock file. The skills CLI refuses to re-export a locked skill, so a
+//     lock here silently reduces what teams can install (ADR-0011).
+if (existsSync(join(root, "skills-lock.json")))
+  fail(join(root, "skills-lock.json"), "must not exist — it hides the locked skills from `npx skills add` (ADR-0011)");
+
 if (warnings.length) {
   console.warn(`upstream warnings (${warnings.length}):\n` + warnings.map((w) => `  - ${w}`).join("\n"));
 }
