@@ -45,7 +45,7 @@ Docker must be up before anything touches the database. `pnpm dev` fails with a 
 - `CARRIER_API_KEY` is absent in CI on purpose. Carrier tests are skipped there and run nightly.
 - Timestamps are stored UTC and rendered in the customer's timezone at the edge only. A `Date` anywhere inside `src/orders/` is UTC. Always.
 
-## Before you build
+## When to grill first
 
 A change that adds or alters a design decision — a new module seam, a new dependency, a schema change, an external contract, agent behaviour, or a product rule — starts with `/grill-with-docs`, which produces the ADR and any glossary entries as a by-product. Say so, then start; if I'd rather get on with it, I'll say so.
 

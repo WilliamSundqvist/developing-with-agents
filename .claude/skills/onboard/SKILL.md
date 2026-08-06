@@ -51,7 +51,17 @@ Anything unresolved goes under an **Unverified** heading, named as an open quest
 
 ### 3. Write
 
-`AGENTS.md`, 120–180 lines: Commands · Where to look · Deviations from the defaults · Gotchas · Before you build · Definition of Done · Rules hygiene.
+**Write the files.** The editor shows the diff — a proposed document pasted into the conversation is unreadable and cannot be reviewed line by line. Say in two or three lines what you wrote and what stayed unresolved.
+
+`AGENTS.md`, 120–180 lines, in the sections and at the density of [`AGENTS.example.md`](../../../AGENTS.example.md): Commands · Where to look · Deviations from the defaults · Gotchas · When to grill first · Definition of Done · Rules hygiene. A draft half again longer than the example is narrating — cut it back.
+
+Three rules hold that density:
+
+- **Verification is a gate, not content.** You ran the commands to find out which ones are real. Write the command. Add a note beside it only when the note is a trap the next agent would hit — "98 nullable warnings; keep cleanup out of feature work" earns its line, "succeeded locally" does not.
+- **State the fact, not the ban.** "Local startup needs `KeyVault:Name` in user secrets" beats "do not assume local startup works from appsettings" — it is shorter, and a prohibition makes the wrong behaviour more available, not less.
+- **Where to look stays a table.** One row per kind of change: task, path, note. Prose paragraphs per file are the same information at four times the length.
+
+The Definition of Done is **one command**. Conditions about which parts to check belong in the work, not in the bar.
 
 Then:
 
@@ -59,6 +69,6 @@ Then:
 - **`CONTEXT.md`** with its heading, one line of domain description, and an empty `## Language`. It stays empty: terms enter through grilling, confirmed by a human. A glossary harvested from code canonises whatever names are already there.
 - **`docs/adr/`** with a `.gitkeep`. Records start here and arrive through grilling — rationale inferred from git history is rationale invented.
 
-Present a diff with reasons, additions **and** deletions both justified, and get agreement before applying.
+Where you are revising an existing file, justify the **deletions** as well as the additions — a line you removed is the one the human is most likely to want back.
 
 Close by handing over the two things the human now owns: the Definition of Done stays green, and the next decision-bearing change starts with `/grill-with-docs`.

@@ -36,7 +36,7 @@ No build, no tests. `check` is the only gate.
 - **Skill count is a budget.** Measured pass rates drop 8–21% as libraries grow to 52–202 skills, through shadowing rather than token cost. Adding one means naming which of the seven it competes with, and clearing the exclusion rules in [ADR-0010](docs/adr/0010-skills-that-require-infrastructure-we-do-not-control-stay-out.md).
 - Agent Skills need **VS Code 1.109+**. Older versions read `AGENTS.md` and silently ignore everything in `.claude/skills/`.
 
-## Before you build
+## When to grill first
 
 A change that adds or alters a design decision — a new module seam, a new dependency, a schema change, an external contract, agent behaviour, or a product rule — starts with `/grill-with-docs`, which produces the ADR and any glossary entries as a by-product. Name the clause that fired, then start. If I'd rather get on with it, I'll say so.
 
