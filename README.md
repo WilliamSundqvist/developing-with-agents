@@ -1,147 +1,124 @@
 # developing-with-agents
 
-This standard makes the repository you already have into one that agents work well in.
+Coding agents fail on your repository for the same reasons new colleagues do: a convention nobody wrote down, code that looks wrong but is deliberate, a word that means something specific on this team. The difference is that agents fail this way *every session*, which finally makes it worth writing the answers down.
 
-It also makes your team agree with itself. Those are the same job.
+This is an opinionated standard for doing that. It covers one thing — **the repository, and what a single developer can change in it today.** No new tooling, no process to negotiate, nothing that touches how your company tracks work. Drop it into a codebase you already have and it takes about half an hour.
 
-## Why this exists
+The documents that make agents effective turn out to be the documents that make a team agree with itself. That's the real return.
 
-Most advice about AI-native development tells you to change things you do not control. Use this ticket system. Restructure the repository. Add this planning process. Your employer chooses the ticket system. Your team inherits the repository. You cannot start again on a Tuesday.
+## Install
 
-This standard covers one thing only: **the repository, and what one developer can change in it today.** You do not buy tools. You do not ask permission. You do not change how your company tracks work.
-
-There is a second reason, and it matters more with time. A new agent and a new teammate fail on a repository for the same reasons:
-
-- A rule that nobody wrote down.
-- Code that looks wrong but is correct on purpose.
-- A word that has a special meaning in this team.
-
-You write these down for the agent. Your team gets them too. Agents are the first colleagues impatient enough to make you write them.
-
-## How to add it
-
-Do these two steps in the repository you already have.
-
-**Step 1.** Install the skills:
+Two commands in the repository you want to improve.
 
 ```bash
 npx skills@latest add WilliamSundqvist/developing-with-agents
 ```
 
-The skills go into `.claude/skills/`. This folder is not only for Claude. VS Code Copilot reads `.claude/skills/` and `CLAUDE.md` by default, with no settings to change. One set of files works in both tools.
-
-**Step 2.** In VS Code Copilot or Claude Code, type:
+Then, in VS Code Copilot or Claude Code:
 
 ```
 /onboard
 ```
 
-`/onboard` does four things. It reads your code. It runs your build and test commands, to make sure they work. It asks you about what it cannot find out alone. Then it writes `AGENTS.md`, a `CLAUDE.md` stub, and an empty `CONTEXT.md`.
+`/onboard` reads your codebase, executes your build and test commands to confirm they actually work, interviews you about what it couldn't determine on its own, and writes `AGENTS.md`, a `CLAUDE.md` stub, and an empty `CONTEXT.md`. Set aside 20–30 minutes — the interview is where the valuable content comes from, because it's the part no agent can extract from source.
 
-Keep 20 to 30 minutes free. `/onboard` asks you questions, and your answers are the part that agents cannot get from the code.
+**Requirements:** VS Code 1.109 or later for Agent Skills. Earlier versions read `AGENTS.md` but ignore the skills entirely.
 
-You need VS Code 1.109 or later. Older versions read `AGENTS.md` but ignore the skills.
+<details>
+<summary>Why the skills install to <code>.claude/skills/</code> even on Copilot</summary>
 
-## The habit
+`.claude/skills/` is one of VS Code's four default skill locations, alongside `.github/skills/` — enabled out of the box, no settings to change. Claude Code reads only `.claude/`, so it's the single directory both tools find. VS Code reads `CLAUDE.md` by default too. The naming is a historical artifact, not a compatibility signal.
 
-**Before you make a change that decides something, the agent runs `/grill-with-docs`.**
+</details>
 
-A change decides something when it adds or alters:
+## The one habit that matters
 
-- a new module boundary
-- a new dependency
-- a database or data-shape change
-- an agreement with an external system
-- agent behaviour
-- a product rule
+**Before a change that decides something, the agent runs `/grill-with-docs`.**
 
-We call this a **decision-bearing change**. Everything else is mechanical: renames, typos, dependency updates, and fixes to a failing test. Mechanical work starts immediately.
+A *decision-bearing change* adds or alters a module boundary, a dependency, a schema, an external contract, agent behaviour, or a product rule. Everything else is mechanical — renames, typos, dependency bumps, fixing a failing test — and proceeds with no ceremony at all.
 
-The agent starts the interview itself. It tells you which rule applies, then asks the first question. If you prefer to continue, say so. The agent stops the interview for that request.
+The agent fires it without being asked. It names the clause that triggered, then asks the first question; if you'd rather get on with it, say so and it drops for that request.
 
-The interview is not the goal. The result is. While you talk, the agent writes the decision record and the new glossary words. **You get the documents from a conversation that you wanted to have.** Nobody writes documentation as a separate task.
+The interview isn't the point. **The decision record and the glossary entries get written as a by-product of a conversation you wanted to have anyway.** Nobody is ever assigned documentation, and the documents stay true because they're written at the moment the decision is made rather than reconstructed later by someone guessing.
 
-This is the one idea that the whole standard depends on. It also keeps the documents true, because the agent writes them at the moment you make the decision.
+That single mechanism is what the rest of this standard is built on.
 
-## The seven skills, and when to use each
+## Reference
 
-You type five of these. Two run by themselves.
+Any skill can be invoked by typing its name. The distinction below is whether the *agent* can reach it on its own.
 
-### You type these
+**Agent-invoked** — fire automatically when relevant, and can be typed:
 
-| Skill | Type it when | What it does |
-|---|---|---|
-| `/onboard` | Once, when you add this standard to a repository. | Reads your code, runs your commands, interviews you, and writes `AGENTS.md`, `CLAUDE.md` and an empty `CONTEXT.md`. |
-| `/grill-with-docs` | Before you build something that decides how the system works. | Interviews you one question at a time. Writes the decision record and glossary words as you talk. Also starts by itself — see above. |
-| `/audit-docs` | When the documents feel wrong. Also before a new person joins, and after a large refactor. | Compares `AGENTS.md`, `CONTEXT.md` and the decision records against the code and against each other. Reports what does not agree. |
-| `/handoff` | When a session gets too long, or you must stop in the middle of a task. | Writes a summary that the next agent session can continue from. |
-| `/grilling` | When you want the interview, but nothing is being decided and no document is needed. | The same interview, with no documents. |
-
-### These run by themselves
-
-| Skill | When it runs |
+| Skill | Fires when |
 |---|---|
-| `domain-modeling` | During grilling, when a word or a decision becomes clear. It writes the glossary entry and the decision record. |
-| `writing-for-agents` | When you or an agent edits `AGENTS.md`, `CLAUDE.md`, or a skill. It supplies the rules for writing documents that agents read. |
+| `grill-with-docs` | A request carries a design decision. The interview above. |
+| `grilling` | You want the interview without producing documents. |
+| `domain-modeling` | A term or decision crystallises mid-conversation. Writes the glossary entry and the ADR. |
+| `writing-for-agents` | Anyone edits `AGENTS.md`, `CLAUDE.md`, or a skill. Supplies the rules for documents agents read. |
 
-**Start with two.** Use `/onboard` one time. Then use `/grill-with-docs` before each decision-bearing change. The other five are there when you need them.
+**You-invoked** — deliberate, never automatic:
 
-## What each repository gets
-
-| File | Purpose |
+| Skill | Reach for it when |
 |---|---|
-| `AGENTS.md` | 120 to 180 lines. Commands, where to find things, differences from the defaults, and known traps. It has no architecture description — see [ADR-0006](docs/adr/0006-no-architecture-overview-in-the-instruction-file.md). |
-| `CLAUDE.md` | One line: `@AGENTS.md`. Claude Code does not read `AGENTS.md` directly. |
-| `CONTEXT.md` | The words your team agrees on. It starts empty and fills up through grilling. |
-| `docs/adr/` | Decision records. They start empty and fill up through grilling. |
-| a `check` command | Type check, lint, and tests. One command. It fails with a non-zero exit code. This is the Definition of Done. |
+| `onboard` | Adopting this standard in a repository. Once per repo. |
+| `audit-docs` | The documents feel wrong; before onboarding someone new; after a refactor large enough to move vocabulary. |
+| `handoff` | A session has run long, or you need to stop mid-task and continue elsewhere. |
 
-[`AGENTS.example.md`](AGENTS.example.md) and [`CONTEXT.example.md`](CONTEXT.example.md) are complete examples for an API that does not exist. The name ends in `.example`, so no agent reads them. Use them to see the correct shape and length. Do not copy their contents.
+Two are enough to start: `/onboard` once, then `/grill-with-docs` before each decision-bearing change.
 
-## What we did not include
+## What a repository ends up with
 
-These skills come from [mattpocock/skills](https://github.com/mattpocock/skills). It is the best collection available. We did not take all of it. Three rules decided what to take.
+| | |
+|---|---|
+| `AGENTS.md` | 60–100 lines. Commands, a routing table, deviations from defaults, gotchas. No architecture overview — [ADR-0006](docs/adr/0006-no-architecture-overview-in-the-instruction-file.md). |
+| `CLAUDE.md` | A one-line stub: `@AGENTS.md`. Claude Code doesn't read `AGENTS.md` natively. |
+| `CONTEXT.md` | Your team's shared vocabulary. Starts empty, fills through grilling. |
+| `docs/adr/` | Decision records. Start empty, fill through grilling. |
+| a `check` command | Typecheck, lint, tests — one command, one exit code. The Definition of Done. |
 
-**1. Nothing that needs infrastructure you do not control.** Your employer chooses the ticket system. A standard that expects you to change it is a standard you cannot use. The ticket and specification skills stay out.
+[`AGENTS.example.md`](AGENTS.example.md) and [`CONTEXT.example.md`](CONTEXT.example.md) are complete worked examples for a fictional service. The `.example` suffix means no agent loads them. Read them for shape and density; the facts in them are invented.
 
-**2. Nothing that decides how your team builds.** Test-first development, code review, and debugging methods are your decisions. This standard makes a repository easy to understand. It does not tell you how to write software.
+## Scope
 
-**3. The number of skills is a budget.** Tests show that success rates fall 8 to 21 percent as collections grow to 52, 102, and 202 skills. The cause is *shadowing*: skills compete to match your request. To add a skill, say which of the seven it competes with.
+These skills are forked from [mattpocock/skills](https://github.com/mattpocock/skills), the best-written collection available — but deliberately not all of it. Three rules governed what came across.
 
-We installed four skills and then removed them. This shows the rules work:
+**Nothing that requires infrastructure you don't control.** Employers choose ticket systems; a standard that assumes you can swap yours is one nobody can adopt. The ticket and spec workflows stay out however good they are.
 
-- `wayfinder` — multi-session planning built on tickets. Rule 1.
-- `improve-codebase-architecture` — it improves code, but it does not make the repository easier to understand. Rule 2.
-- `codebase-design` — the same reason. Rule 2.
-- `grill-me` — grilling with no documents. It gives you a way to avoid the one idea that this standard depends on.
+**Nothing that decides how your team builds.** Test-first, code review, debugging method — those are your calls. This standard makes a repository legible. It doesn't prescribe how you write software.
 
-## What we are honest about
+**Skill count is a budget.** Measured pass rates fall 8–21% as collections grow to 52, 102, and 202 skills, through *shadowing* — skills competing to match a request — rather than token cost. Adding one means naming which of the seven it now competes with.
 
-The evidence for instruction files is weaker than the industry says. A controlled test found that they do not usually improve success rates, and they cost about 20 percent more tokens. Wrong documentation measures *worse than no documentation*. Agents follow policy documents about 36 percent of the time at best.
+Four skills were installed and then removed under those rules: `wayfinder`, `improve-codebase-architecture`, `codebase-design`, and `grill-me` — the last because grilling-without-documents is an exit from the one mechanism everything else depends on.
 
-We built this around those results:
+## Evidence and limitations
 
-- **Few, true, and impossible to derive.** If an agent can find it by reading the code, keep it out.
-- **A size limit**, which `check` enforces. To add a line, decide which line to remove. When an agent ignores an instruction, look at the length of the file before you change the words.
-- **A rule enters the file after the same mistake happens twice.** Not the first time.
-- **Something that must always happen becomes a hook, a commit gate, or a lint rule.** Text is for what should usually happen.
+The case for instruction files is weaker than the industry generally admits. A controlled evaluation found they don't reliably improve task success while costing roughly 20% more inference. Wrong documentation measures *worse than none at all*. Compliance with policy documents tops out around 36%.
 
-The grilling rule is text, so it works about one time in three ([ADR-0008](docs/adr/0008-instructions-not-hooks-for-now.md)). If your team goes past it too often, [`hooks/grilling-reminder.example.json`](hooks/) makes it a hook. It is off, because VS Code hooks are still a preview feature.
+This standard is designed around those findings rather than in spite of them:
 
-Every decision is in [`docs/adr/`](docs/adr/). The research behind it is in [`docs/research/`](docs/research/). Read the record before you disagree with a decision. Two of them do not agree with the published evidence, and they say so.
+- **Few, true, and underivable.** Anything an agent can work out by reading the code stays out.
+- **A hard size cap**, enforced by `check`. Adding a line means choosing one to remove. When an agent ignores an instruction, suspect the file's length before its wording.
+- **A rule earns its place only after the same mistake happens twice.**
+- **Anything that must always happen becomes a hook, a pre-commit gate, or a lint rule.** Prose is for what should usually happen.
 
-## Work on this repository
+The grilling trigger is prose, which makes it roughly a one-in-three mechanism ([ADR-0008](docs/adr/0008-instructions-not-hooks-for-now.md)). If teams drift past it, [`hooks/grilling-reminder.example.json`](hooks/) converts it to a hook — shipped disabled, because VS Code hooks are still in preview.
 
-`npm run check` is the Definition of Done. It checks the skill files, finds skills that point to skills nobody installed, enforces the line limit on `AGENTS.md`, and makes sure the one hand-edited skill has not gone back to the original.
+Every decision is recorded in [`docs/adr/`](docs/adr/), with the primary-source research behind it in [`docs/research/`](docs/research/). Two ADRs knowingly depart from the published evidence and say so. Read the record before overturning a decision.
 
-**Do not run `npx skills` in this repository.** It writes a `skills-lock.json`, and the CLI will not re-export a skill that a lock file claims for another source. With a lock here, teams who install from this repository get two skills instead of seven ([ADR-0011](docs/adr/0011-the-fork-is-complete-not-surgical.md)). `check` fails if one appears.
+## Contributing
 
-If you run it by accident:
+`npm run check` is the Definition of Done: it validates skill frontmatter, catches skills referencing skills that aren't installed, enforces the line cap on `AGENTS.md`, and verifies the auto-fire trigger on `grill-with-docs` is intact.
+
+Changing the standard is itself a decision-bearing change, so it starts with `/grill-with-docs` and lands with an ADR.
+
+**Don't run `npx skills` in this repository.** It writes a `skills-lock.json`, and the CLI won't re-export skills a lock file attributes to another source — teams would receive two skills instead of seven ([ADR-0011](docs/adr/0011-the-fork-is-complete-not-surgical.md)). `check` fails if one appears. To recover:
 
 ```bash
 rm skills-lock.json && npm run skills:flatten && npm run check
 ```
 
-`skills:flatten` also turns the symlinks the CLI creates back into real folders.
+We own all seven skills outright; there's no upstream update path. Improvements from `mattpocock/skills` arrive by reading that repository and porting what's worth having.
 
-We own all seven skills. Improvements from [mattpocock/skills](https://github.com/mattpocock/skills) arrive by reading that repository and copying what is worth having. The licence and the list of derived files are in [`NOTICE`](NOTICE).
+## Licence
+
+MIT — see [`LICENSE`](LICENSE). The forked skills remain under Matt Pocock's MIT licence, reproduced with attribution in [`NOTICE`](NOTICE).
