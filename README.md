@@ -18,6 +18,8 @@ npx skills@latest add WilliamSundqvist/developing-with-agents
 
 **Select all seven skills.** The CLI asks which ones you want — take every one. The set has already been cut to the minimum, and the skills call each other: `/grill-with-docs` runs `grilling` and `domain-modeling`. A partial install leaves the main workflow pointing at skills that aren't installed, and it fails quietly — the agent simply doesn't find them, and you're left wondering why nothing happens.
 
+If the agent ever refuses to start the interview on its own — reporting that `grill-with-docs` "cannot be invoked" and must be typed by hand — the repository is loading an older copy of the skill that is marked user-only. Re-run the command above to replace it.
+
 Then, in VS Code Copilot or Claude Code:
 
 ```
