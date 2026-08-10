@@ -10,7 +10,7 @@ The documents that make agents effective turn out to be the documents that make 
 
 ## Install
 
-Two commands in the repository you want to improve.
+Two steps, both run inside the repository you're adopting this in.
 
 ```bash
 npx skills@latest add WilliamSundqvist/developing-with-agents
