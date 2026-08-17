@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Onboard
 
-Make an existing codebase legible to agents. Produce `AGENTS.md`, a `CLAUDE.md` stub, and empty `CONTEXT.md` and `docs/adr/` for grilling to fill later.
+Make an existing codebase legible to agents. Gather evidence, grill the human for what the evidence cannot supply, and produce `AGENTS.md`, a `CLAUDE.md` stub, `CONTEXT.md`, and any decision records the interview earned.
 
 Your reader retains nothing between sessions and knows only what the repository says out loud — but it can read the code. So one test governs every line:
 
@@ -110,8 +110,8 @@ The Definition of Done is **one command**, and one you watched pass. Conditions 
 Then:
 
 - **`CLAUDE.md`** containing exactly `@AGENTS.md`. A stub file — a symlink breaks on Windows checkouts.
-- **`CONTEXT.md`** with its heading, one line of domain description, and an empty `## Language`. It stays empty: terms enter through grilling, confirmed by a human. A glossary harvested from code canonises whatever names are already there.
-- **`docs/adr/`** with a `.gitkeep`. Records start here and arrive through grilling — rationale inferred from git history is rationale invented.
+- **`CONTEXT.md`** with its heading, one line of domain description, and a `## Language` section holding the terms the human confirmed in step 2, each with the near-synonyms they rejected under `_Avoid_`. Only those. A term nobody confirmed stays out — a glossary harvested from code canonises whatever names happen to be there, which is the opposite of agreeing on language.
+- **`docs/adr/`** holding any record the human agreed to during the interview, and a `.gitkeep` if there are none. Write only the rationale they gave you, in their words — reasoning reconstructed from git history is reasoning invented.
 
 Where you are revising an existing file, justify the **deletions** as well as the additions — a line you removed is the one the human is most likely to want back.
 
