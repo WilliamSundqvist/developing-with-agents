@@ -48,16 +48,20 @@ Done when the subagent has returned all three. If the evidence table is empty, t
 
 ### 2. Interview
 
-Run the `/grilling` skill against the unknowns list, and only that list. One question at a time, each with your recommended answer.
+Start grilling as soon as the subagent reports. Do not summarise its findings and wait for permission — the human ran `/onboard` to be interviewed, and the interview is the part only they can supply.
+
+Run the `/grilling` skill, alongside `/domain-modeling` so confirmed terms and decisions are captured as they surface. One question at a time, each with your recommended answer.
 
 **Keep the question readable.** The question itself carries no file paths. Put evidence on its own line beneath it, as a repo-relative path with an optional line number — `src/orders/dispatch.ts:42`, never an absolute path. Two paths at most; a third means you are asking two questions.
 
-Ask what no repository can tell you:
+Cover the unknowns list first, then these — they are what no repository can tell you:
 
 - Which of several plausible directories does a kind of change belong in?
 - What has bitten people here that the code does not confess?
 - What looks wrong but is deliberate — the thing a newcomer would "fix"?
 - What is deliberately *not* done here, and why?
+- **Vocabulary.** Take the three or four domain words that appear most in the code and ask what each one means *here*, and which near-synonyms the team avoids. A word carrying a local meaning is the single most valuable thing you can write down, and the code cannot tell you which meaning is intended.
+- Any decision the subagent found evidence of but no rationale for — worth an ADR if it is hard to reverse, surprising, and the result of a real trade-off.
 
 Anything unresolved goes under an **Unverified** heading, named as an open question. Resolving an unknown by writing something plausible is the one failure that cannot be caught in review — fluent prose about an unchecked thing reads exactly like a verified fact.
 
