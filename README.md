@@ -10,7 +10,9 @@ The documents that make agents effective turn out to be the documents that make 
 
 ## Install
 
-Two steps, both run inside the repository you're adopting this in.
+Three steps, all inside the repository you're adopting this in.
+
+### 1. Install the skills
 
 ```bash
 npx skills@latest add WilliamSundqvist/developing-with-agents
@@ -20,13 +22,25 @@ npx skills@latest add WilliamSundqvist/developing-with-agents
 
 If the agent ever refuses to start the interview on its own — reporting that `grill-with-docs` "cannot be invoked" and must be typed by hand — the repository is loading an older copy of the skill that is marked user-only. Re-run the command above to replace it.
 
-Then, in VS Code Copilot or Claude Code:
+### 2. Write the documents
+
+In VS Code Copilot or Claude Code:
 
 ```
 /onboard
 ```
 
 `/onboard` reads your codebase, executes your build and test commands to confirm they actually work, interviews you about what it couldn't determine on its own, and writes `AGENTS.md`, a `CLAUDE.md` stub, and an empty `CONTEXT.md`. Set aside 20–30 minutes — the interview is where the valuable content comes from, because it's the part no agent can extract from source.
+
+### 3. Use it on your next real change
+
+```
+/grill-with-docs
+```
+
+`CONTEXT.md` and `docs/adr/` are still empty after step 2, by design — they fill up through use, not through generation. So take the next piece of work that decides something and start it here rather than by writing code.
+
+Run it by hand this first time. It fires on its own afterwards, but doing it deliberately once shows you the output that matters: a decision record in `docs/adr/`, and the first entries in your team's glossary. That's the habit, and the section below explains exactly when it triggers.
 
 **Requirements:** VS Code 1.109 or later for Agent Skills. Earlier versions read `AGENTS.md` but ignore the skills entirely.
 
