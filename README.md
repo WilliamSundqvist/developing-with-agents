@@ -26,7 +26,7 @@ Then, in VS Code Copilot or Claude Code:
 /onboard
 ```
 
-`/onboard` reads your codebase and executes your build and test commands to confirm they actually work. Then it grills you — one question at a time — about everything the repository couldn't tell it: which directory a kind of change belongs in, what has bitten people before, what looks wrong but is deliberate, and what your team's words actually mean. It writes `AGENTS.md`, a `CLAUDE.md` stub, and a `CONTEXT.md` carrying whatever vocabulary you confirmed.
+`/onboard` reads your codebase and executes your build and test commands to confirm they actually work. Then it grills you — in batches you can answer in one reply — about everything the repository couldn't tell it: which directory a kind of change belongs in, what has bitten people before, what looks wrong but is deliberate, and what your team's words actually mean. It writes `AGENTS.md`, a `CLAUDE.md` stub, and a `CONTEXT.md` carrying whatever vocabulary you confirmed.
 
 Set aside 20–30 minutes. The interview is where the value is: it's the part no agent can extract from source, and it's the same interview you'll run before every decision from then on.
 

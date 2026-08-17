@@ -50,9 +50,13 @@ Done when the subagent has returned all three. If the evidence table is empty, t
 
 Start grilling as soon as the subagent reports. Do not summarise its findings and wait for permission — the human ran `/onboard` to be interviewed, and the interview is the part only they can supply.
 
-Run the `/grilling` skill, alongside `/domain-modeling` so confirmed terms and decisions are captured as they surface. One question at a time, each with your recommended answer.
+**Ask in batches.** Almost everything you need here is an independent fact — which directory a change belongs in, what a word means, what bit someone last year. None of these answers changes what the next question should be, so asking them singly just makes the human wait through a queue. Send five to eight at a time as a numbered list, grouped by topic, each with your recommended answer so they can reply "1 yes, 2 it's actually X, 3 skip" in one message. Keep batching until the unknowns list is empty.
 
-**Keep the question readable.** The question itself carries no file paths. Put evidence on its own line beneath it, as a repo-relative path with an optional line number — `src/orders/dispatch.ts:42`, never an absolute path. Two paths at most; a third means you are asking two questions.
+**Switch to one-at-a-time only when an answer opens a branch.** If a reply exposes a real design decision — hard to reverse, surprising, a genuine trade-off — run the `/grilling` skill for that thread alone: dependent questions asked singly, each with a recommendation, because there the answer to one determines whether the next is even the right question. Return to batching once the branch is resolved.
+
+Run `/domain-modeling` throughout, so confirmed terms and agreed records are captured as they surface rather than noted for a later session.
+
+**Keep each question readable.** The question itself carries no file paths. Put evidence on its own line beneath it, as a repo-relative path with an optional line number — `src/orders/dispatch.ts:42`, never an absolute path. Two paths at most; a third means it is two questions.
 
 Cover the unknowns list first, then these — they are what no repository can tell you:
 
